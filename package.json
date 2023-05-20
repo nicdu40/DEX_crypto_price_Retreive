@@ -1,0 +1,27 @@
+{
+  "name": "recup_crypto_price",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "mocha test/Unitaire",
+    //"test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js"
+  },
+  "author": "Nicolas Dubayle",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.22",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0"
+  }
+}
