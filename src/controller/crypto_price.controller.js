@@ -26,12 +26,17 @@ getAllPrice = (request, response) => {
 // ----------------------------------------------
 getPriceByPair = (request, response) => {
     crypto_price_Model.getPriceByPair((error, data) => {
-        if (error)
-            response.status(500).send({
-                message:
-                    error.message || "Une erreur est survenue en essayant de récupérer la table crypto_price."
-            });
-        else {
+        if (error) {
+            if (error.kind === "pair_not_found") {
+                response.status(404).send({
+                    message: `pair not fount(table vide?)`
+                });
+            } else {
+                response.status(500).send({
+                    message: `error 500`
+                });
+            }
+        }else {
             response.send(data);
         }
     });
@@ -50,7 +55,7 @@ getPriceByBase = (request, response) => {
                 });
             } else {
                 response.status(500).send({
-                    message: `${request.query.base} Not FOUND`
+                    message: `error 500`
                 });
             }
         } else {
@@ -73,7 +78,7 @@ getPriceByQuote = (request, response) => {
                 });
             } else {
                 response.status(500).send({
-                    message: `${request.query.quote} Not FOUND`
+                    message: `error 500`
                 });
             }
         } else {
@@ -88,12 +93,17 @@ getPriceByQuote = (request, response) => {
 // ----------------------------------------------
 getOpportunite = (request, response) => {
     crypto_price_Model.getOpportunite((error, data) => {
-        if (error)
-            response.status(500).send({
-                message:
-                    error.message || "Aucune opportunites."
-            });
-        else {
+        if (error) {
+            if (error.kind === "opportunite_not_found") {
+                response.status(404).send({
+                    message: `aucune opportunité`
+                });
+            } else {
+                response.status(500).send({
+                    message: `error 500`
+                });
+            }
+        }else {
             response.send(data);
         }
     });
@@ -107,21 +117,34 @@ getOpportunite = (request, response) => {
 updatePrice = (request, response) => {
     if (!request.body) {
         response.status(400).send({
-        message: "Le contenu ne peut être vide !"
+            message: "Le contenu ne peut être vide !"
         });
     } else {
         crypto_price_Model.updatePrice(dataBase)
-        .then(() => {
-            response.status(200).send('Script exécuté avec succès !');
-        })
-        .catch(error => {
-            response.status(500).send({
-                message: "Une erreur s'est produite lors de la mise à jour des prix.",
-                error: error
+            .then(() => {
+                response.status(200).send('Prices updated !');
+            })
+            .catch(error => {
+                response.status(500).send({
+                    message: "Error while updated prices",
+                    error: error
                 });
 
-        });
+            });
     }
+};
+
+deleteAll = (request, response) => {
+    crypto_price_Model.deleteAll((error, data) => {
+        if (error)
+            response.status(500).send({
+                message:
+                    error.message || "Une erreur est survenue en essayant de supprimer la table crypto_price."
+            });
+        else {
+            response.send(data);
+        }
+    });
 };
 
 // ----------------------------------------------
@@ -133,5 +156,6 @@ module.exports = {
     getPriceByBase,
     getPriceByQuote,
     getOpportunite,
-    updatePrice
+    updatePrice,
+    deleteAll,
 };

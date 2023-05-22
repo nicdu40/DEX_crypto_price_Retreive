@@ -5,8 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "mocha test/Unitaire",
-    //"test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha utils",
     "lint": "eslint . --ext .js"
   },
   "author": "Nicolas Dubayle",

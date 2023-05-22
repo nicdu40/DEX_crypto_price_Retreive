@@ -10,16 +10,23 @@ const swaggerGeneration = {
     swaggerDefinition: {
         openapi: "3.0.0",
         info: {
-            title: 'crypto_API',
-            version: '0.1.0'
+            title: 'DEX_crypto_price_Retreive',
+            version: '1.0.0',
+            description: 'Retreive crypto price from DEX stock exchange, find opportunity (ex: if buy_usdt[LOG/BTC] > sell_usdt[LOG/ETH]). Select the appropriate "Servers" according to the domain name of the url ',
+            
         },
         servers: [
             {
-                url: "http://localhost:8081/api/v1",
+                url: "http://127.0.0.1:8081/api/v1/crypto_price/",
+                
             },
+            {
+            url: "http://nicdu40.mooo.com:8081/api/v1/crypto_price/",
+            },        
         ],
     },
-    apis: ['src/routes/*.js'] // récupère l'enssemble des commentaires swagger venant des fichiers .js du dossier routes
+   // apis: ['src/routes/*.js'] // récupère l'enssemble des commentaires swagger venant des fichiers .js du dossier routes
+   apis: ['./routes/*.js'] // récupère l'enssemble des commentaires swagger venant des fichiers .js du dossier routes
 };
 
 const swaggerOptions = swaggerJsDoc(swaggerGeneration);
